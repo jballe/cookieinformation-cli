@@ -1,0 +1,18 @@
+[
+  {
+    "BaseImage": "mcr.microsoft.com/powershell:nanoserver-1903",
+    "Tag": "{VERSION}-nanoserver-1903"
+  },
+  {
+    "BaseImage": "mcr.microsoft.com/powershell:nanoserver-1809",
+    "Tag": "{VERSION}-nanoserver-1809"
+  },
+  {
+    "BaseImage": "mcr.microsoft.com/powershell:alpine-3.8",
+    "Tag": "{VERSION}-alpine"
+  },
+  {
+    "BaseImage": "mcr.microsoft.com/powershell:debian-9",
+    "Tag": "{VERSION}-debian"
+  }
+]
