@@ -5,7 +5,7 @@ param(
     [Parameter(ParameterSetName = "None", Mandatory = $true)]
     $Password,
     $SiteId = $null,
-    $SiteName = "Tryghed.dk",
+    $SiteName = $null,
     $DomainName = $null,
     [ValidateSet("internal_alias", "external_alias", "website")]
     $DomainType = "internal_alias",
@@ -14,7 +14,7 @@ param(
     [Switch]$ListDomains,
     [Switch]$AddDomain,
     [Switch]$RemoveDomain,
-    [Switch]$ExportToDisk,
+    [Switch]$ExportToDisk=$True,
     [Switch]$ImportFromDisk,
     [Parameter(ParameterSetName = "Help", Mandatory = $true)]
     [Switch]$Help
@@ -31,9 +31,9 @@ $ErrorActionPreference = "STOP"
 function Login {
     param(
         $Email,
-        $Password
+        $Pwd
     )
-    $login = Post -Path "/login_check" -Data @{ email = $Email; password = $Password } -Accept "*/*" -ContentType "application/json"
+    $login = Post -Path "/login_check" -Data @{ email = $Email; password = $Pwd } -Accept "*/*" -ContentType "application/json"
     $token = $login.token
     $global:token = "Bearer ${token}"
 }
@@ -71,7 +71,7 @@ function Post {
 
     $uri = "https://api.app.cookieinformation.com${Path}"
     $json = $Data | ConvertTo-Json
-    $result = Invoke-RestMethod -Uri $uri -Headers $headers -Method $Verb -Body $json -ContentType $ContentType
+    $result = Invoke-RestMethod -Uri $uri -Headers $headers -Method $Verb -Body $json -ContentType $ContentType -Proxy http://127.0.0.1:8888
     $result
 }
 
