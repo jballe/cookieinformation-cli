@@ -275,10 +275,12 @@ function LoadAssetsToSite {
 }
 
 If($Null -ne $Username -or -not $Help) {
+    Write-Host "Logging in..."
     Login -Email $Username -Pwd $Password
 }
 
 if ($ListSites) {
+    Write-Host "Get Website..."
     $webs = GetWebsites
     $webs | Format-Table -Property id, name
 }
@@ -298,23 +300,28 @@ If ($Null -eq $site) {
 }
 
 If ($AddDomain) {
+    Write-Host "Adding domain..."
     ExecuteAddDomain -SiteId $siteId -HostName $DomainName -Type $DomainType
     Write-Host "Added domain to ${siteName} ($siteId)" -ForegroundColor Green
 } elseif ($RemoveDomain) {
+    Write-Host "Removing domain..."
     RemoveDomain -SiteId $siteId -HostName $DomainName
     Write-Host "Removed domain $DomainName from ${siteName} ($siteId)" -ForegroundColor Green
 }
 
 If ($ListDomains) {
+    Write-Host "Fetch domains..."
     $site.domains | Format-Table -property "type", canonicalDomain
 }
 
 if ($ImportFromDisk) {
+    Write-Host "Import assets..."
     LoadAssetsToSite -Site $site -Path $AssetsPath
     Write-Host "Imported ${siteName} ($siteId) from disk to site" -ForegroundColor Green
 }
 
 if ($ExportToDisk) {
+    Write-Host "Export assets..."
     SaveWebsiteAssets -Site $site -Path $AssetsPath
     Write-Host "Exported ${siteName} ($siteId) to disk" -ForegroundColor Green
 }

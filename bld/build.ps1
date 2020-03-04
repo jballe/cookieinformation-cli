@@ -7,7 +7,7 @@ param(
 
 $ErrorActionPreference = "STOP"
 
-$srcDir = Join-Path $PSScriptRoot "../src" -Resolve
+$srcDir = Join-Path $PSScriptRoot ".." -Resolve
 (get-content (join-path $PSScriptRoot "build.json" -Resolve) | ConvertFrom-Json) | ForEach-Object {
     $buildDef = $_
     $tag = $buildDef.Tag.Replace("{VERSION}", $Version)
