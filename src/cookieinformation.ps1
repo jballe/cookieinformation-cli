@@ -71,7 +71,7 @@ function Post {
 
     $uri = "https://api.app.cookieinformation.com${Path}"
     $json = $Data | ConvertTo-Json
-    $result = Invoke-RestMethod -Uri $uri -Headers $headers -Method $Verb -Body $json -ContentType $ContentType -Proxy http://127.0.0.1:8888
+    $result = Invoke-RestMethod -Uri $uri -Headers $headers -Method $Verb -Body $json -ContentType $ContentType
     $result
 }
 
@@ -204,7 +204,7 @@ function SaveWebsiteAssets {
         }
     }
 
-    if (-not (Test-Path $Path)) { new-item $Path -ItemType Directory }
+    if (-not (Test-Path $Path)) { new-item $Path -ItemType Directory | Out-Null }
     $global:templates | ForEach-Object {
         $name = $_
         $obj = $Site.$name
