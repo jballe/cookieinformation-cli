@@ -291,10 +291,10 @@ If ($Null -ne $SiteId) {
     $site = GetWebsiteData -Name $SiteName    
 }
 
-If ($Null -eq $site) {
+If ($Null -eq $site -and ($SiteId -or $SiteName)) {
     Write-Error "Could not find site"
     return
-} else {
+} ElseIf($Null -ne $site) {
     $siteName = $site | Select-Object -ExpandProperty name
     $siteId = $site.id
 }
